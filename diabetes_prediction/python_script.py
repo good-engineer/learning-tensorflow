@@ -23,7 +23,7 @@ model.compile(loss='binary_crossentropy',
 
 # %%
 # fit the keras model on dataset
-model.fit(X_train, y_train, epochs=240, batch_size=15, verbose=0)
+model.fit(X_train, y_train, epochs=150, batch_size=15, verbose=0)
 
 
 # %%
@@ -36,5 +36,14 @@ for i in range(10):
 
 # %%
 # evaluate the model
-_, accurancy_test = model.evaluate(X_test, y_test, verbose=0)
-print('Accurancy: %.2f' % (accurancy*100))
+_, accuracy_test = model.evaluate(X_test, y_test, verbose=0)
+print('Accurancy: %.2f' % (accuracy_test*100))
+
+
+# %%
+# save the model into a JSON file
+model_json = model.to_json()
+with open("model.json", "w") as json_file:
+    json_file.write(model_json)
+model.save_weights("model.h5")
+print("model is saved to disk")
